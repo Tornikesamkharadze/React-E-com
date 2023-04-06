@@ -8,6 +8,8 @@ function App() {
         <Route path="about" />
         
       </Routes>
+      <Route/>
+      
     </BrowserRouter>
   );
 }
