@@ -6,7 +6,6 @@ function App() {
       <Routes>
         <Route index="/" element={<Home />} />
         <Route path="about" />
-        <Route path="contact" />
       </Routes>
     </BrowserRouter>
   );
