@@ -20,6 +20,7 @@ export default [
     imageUrl: "https://i.ibb.co/GCCdy8t/womens.png",
   },
   {
+    ss:"23",
     id: 5,
     title: "mens",
     imageUrl: "https://i.ibb.co/R70vBrQ/men.png",
