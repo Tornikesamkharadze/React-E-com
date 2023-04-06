@@ -5,6 +5,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route index="/" element={<Home />} />
+        <Route path="about" />
       </Routes>
     </BrowserRouter>
   );
