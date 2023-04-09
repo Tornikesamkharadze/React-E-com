@@ -3,9 +3,9 @@ import Directory from "../../components/directory/directory.component";
 
 const Home = () => {
   return (
-    <div>
+    <React.Fragment>
       <Directory />
-    </div>
+    </React.Fragment>
   );
 };
 
