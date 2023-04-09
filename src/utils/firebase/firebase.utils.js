@@ -21,24 +21,28 @@ const firebaseConfig = {
 // Initialize Firebase
 const firebaseApp = initializeApp(firebaseConfig);
 
-const provider = new GoogleAuthProvider();
+const googleProvider = new GoogleAuthProvider();
 
-provider.setCustomParameters({
+googleProvider.setCustomParameters({
   prompt: "select_account",
 });
 
 export const auth = getAuth();
-export const signInWithGooglePopup = () => signInWithPopup(auth, provider);
+
+export const signInWithGooglePopup = () => {
+  return signInWithPopup(auth, googleProvider);
+};
+
+export const signInWithGoogleRedirect = () => {
+  return signInWithRedirect(auth, googleProvider);
+};
 
 export const database = getFirestore();
 
 export const createUserDocumentFromAuth = async (userAuth) => {
   const userDocRef = doc(database, "users", userAuth.uid);
-  console.log(userDocRef);
 
   const userSnapshot = await getDoc(userDocRef);
-  console.log(userSnapshot);
-  console.log(userSnapshot.exists());
 
   if (!userSnapshot.exists()) {
     //თუ ბაზაში არარის იუზერი შექმნილი ვქმნით და ვაგზავნით
