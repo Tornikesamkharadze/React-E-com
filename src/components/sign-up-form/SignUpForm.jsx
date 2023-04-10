@@ -1,4 +1,9 @@
 import React, { useEffect, useState } from "react";
+import {
+  createAuthUserWithEmailAndPassword,
+  signInWithGooglePopup,
+  createUserDocumentFromAuth,
+} from "../../utils/firebase/firebase.utils";
 
 const initialValue = {
   displayName: "",
@@ -7,31 +12,53 @@ const initialValue = {
   confirmPassword: "",
 };
 
-const getLocalStorage = () => {
-  let getValuesFromLocalStorage = localStorage.getItem("formValues");
-  if (!getValuesFromLocalStorage) {
-    return initialValue;
-  }
-  return JSON.parse(getValuesFromLocalStorage);
+const initialErrors = {
+  emailError: "",
+  passwordError: "",
+  confirmPasswordError: "",
 };
 
 const SignUpForm = () => {
-  const [formFields, setFormFields] = useState(getLocalStorage());
+  const [formFields, setFormFields] = useState(initialValue);
   const { displayName, email, password, confirmPassword } = formFields;
+  const [formError, setFormError] = useState(initialErrors);
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });
   };
 
-  useEffect(() => {
-    localStorage.setItem("formValues", JSON.stringify(formFields));
-  }, [formFields]);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (password === confirmPassword) {
+      try {
+        const { user } = await createAuthUserWithEmailAndPassword(
+          email,
+          password
+        );
+        await createUserDocumentFromAuth(user, { displayName });
+        setFormFields(initialValue);
+      } catch (error) {
+        if (error.code === "auth/email-already-in-use") {
+          setFormError({
+            ...formError,
+            emailError: "this email is already in use",
+            passwordError: "The password matches",
+          });
+        }
+      }
+    } else if (password !== confirmPassword) {
+      setFormError({
+        ...formError,
+        passwordError: "The password does not match",
+      });
+    }
+  };
 
   return (
     <div>
       <h1>Sign up with your email and password</h1>
-      <form onSubmit={() => {}}>
+      <form onSubmit={handleSubmit}>
         <label>Name</label>
         <input
           onChange={onChangeHandler}
