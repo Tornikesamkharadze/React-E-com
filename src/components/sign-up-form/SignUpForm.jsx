@@ -1,9 +1,11 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   createAuthUserWithEmailAndPassword,
-  signInWithGooglePopup,
   createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase.utils";
+import FormInput from "../form-input/FormInput";
+import "./sign-up-form.style.scss";
+import ButtonComponent from "../button/ButtonComponent";
 
 const initialValue = {
   displayName: "",
@@ -38,63 +40,74 @@ const SignUpForm = () => {
         );
         await createUserDocumentFromAuth(user, { displayName });
         setFormFields(initialValue);
+        setFormError(initialErrors);
       } catch (error) {
         if (error.code === "auth/email-already-in-use") {
           setFormError({
             ...formError,
             emailError: "this email is already in use",
-            passwordError: "The password matches",
+            passwordError: "",
           });
         }
+        console.log(error);
       }
     } else if (password !== confirmPassword) {
       setFormError({
         ...formError,
+        emailError: "",
         passwordError: "The password does not match",
       });
     }
   };
-
+  console.log(formError);
   return (
-    <div>
-      <h1>Sign up with your email and password</h1>
+    <div className="sign-up-container">
+      <h2>Don't have an account?</h2>
+      <span>Sign up with your email and password</span>
       <form onSubmit={handleSubmit}>
-        <label>Name</label>
-        <input
+        <FormInput
+          label="name"
           onChange={onChangeHandler}
           name="displayName"
           value={displayName}
           type="text"
           required
         />
-
-        <label>Email</label>
-        <input
+        <FormInput
+          label="Email"
           onChange={onChangeHandler}
           name="email"
           value={email}
           type="email"
           required
         />
-
-        <label>Password</label>
-        <input
+        {formError.emailError && (
+          <p style={{ color: "red", textAlign: "center" }}>
+            {formError.emailError}
+          </p>
+        )}
+        <FormInput
+          label="Password"
           onChange={onChangeHandler}
           name="password"
           value={password}
           type="password"
           required
         />
-
-        <label>Confirm Password</label>
-        <input
+        {formError.passwordError && (
+          <p style={{ color: "red", textAlign: "center" }}>
+            {formError.passwordError}
+          </p>
+        )}
+        <FormInput
+          label="Confirm Password"
           onChange={onChangeHandler}
           name="confirmPassword"
           value={confirmPassword}
           type="password"
           required
         />
-        <button type="submit">Sign up</button>
+        <ButtonComponent type="submit">Sign up</ButtonComponent>
       </form>
     </div>
   );
