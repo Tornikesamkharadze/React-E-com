@@ -2,8 +2,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import "./navigation.style.scss";
 import { ReactComponent as Logo } from "../../assets/shopping-logo-svgrepo-com.svg";
+import { useUserContext } from "../../contexts/userContext";
 
 const Navigation = () => {
+  const { currentUser } = useUserContext();
+  console.log(currentUser);
   return (
     <div className="navigation">
       <Link className="logo-container" to="/">
