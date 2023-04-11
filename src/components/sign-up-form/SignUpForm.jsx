@@ -17,7 +17,6 @@ const initialValue = {
 const initialErrors = {
   emailError: "",
   passwordError: "",
-  confirmPasswordError: "",
 };
 
 const SignUpForm = () => {
