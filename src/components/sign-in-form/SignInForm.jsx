@@ -7,6 +7,7 @@ import {
 import FormInput from "../form-input/FormInput";
 import "./sign-in-form.style.scss";
 import ButtonComponent from "../button/ButtonComponent";
+import { useUserContext } from "../../contexts/userContext";
 
 const initialValue = {
   email: "",
@@ -17,6 +18,7 @@ const SignInForm = () => {
   const [formFields, setFormFields] = useState(initialValue);
   const { email, password } = formFields;
   const [formError, setFormError] = useState("");
+  const { setCurrentUser } = useUserContext();
 
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
@@ -32,11 +34,11 @@ const SignInForm = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await signInAuthUserWithEmailAndPassword(
+      const { user } = await signInAuthUserWithEmailAndPassword(
         email,
         password
       );
-      console.log(response);
+      setCurrentUser(user);
       setFormFields(initialValue);
       setFormError("");
     } catch (error) {
