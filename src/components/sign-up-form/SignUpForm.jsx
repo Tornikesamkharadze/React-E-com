@@ -4,8 +4,9 @@ import {
   createUserDocumentFromAuth,
 } from "../../utils/firebase/firebase.utils";
 import FormInput from "../form-input/FormInput";
-import "./sign-up-form.style.scss";
 import ButtonComponent from "../button/ButtonComponent";
+import "./sign-up-form.style.scss";
+import { useUserContext } from "../../contexts/userContext";
 
 const initialValue = {
   displayName: "",
@@ -24,6 +25,9 @@ const SignUpForm = () => {
   const { displayName, email, password, confirmPassword } = formFields;
   const [formError, setFormError] = useState(initialErrors);
 
+  //context
+  const { setCurrentUser } = useUserContext();
+
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });
@@ -38,6 +42,7 @@ const SignUpForm = () => {
           password
         );
         await createUserDocumentFromAuth(user, { displayName });
+        setCurrentUser(user);
         setFormFields(initialValue);
         setFormError(initialErrors);
       } catch (error) {
@@ -58,7 +63,7 @@ const SignUpForm = () => {
       });
     }
   };
-  console.log(formError);
+
   return (
     <div className="sign-up-container">
       <h2>Don't have an account?</h2>
