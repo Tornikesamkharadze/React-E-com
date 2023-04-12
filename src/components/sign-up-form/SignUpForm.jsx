@@ -6,7 +6,6 @@ import {
 import FormInput from "../form-input/FormInput";
 import ButtonComponent from "../button/ButtonComponent";
 import "./sign-up-form.style.scss";
-import { useUserContext } from "../../contexts/userContext";
 
 const initialValue = {
   displayName: "",
@@ -25,9 +24,6 @@ const SignUpForm = () => {
   const { displayName, email, password, confirmPassword } = formFields;
   const [formError, setFormError] = useState(initialErrors);
 
-  //context
-  const { setCurrentUser } = useUserContext();
-
   const onChangeHandler = (e) => {
     const { name, value } = e.target;
     setFormFields({ ...formFields, [name]: value });
@@ -42,7 +38,6 @@ const SignUpForm = () => {
           password
         );
         await createUserDocumentFromAuth(user, { displayName });
-        setCurrentUser(user);
         setFormFields(initialValue);
         setFormError(initialErrors);
       } catch (error) {
