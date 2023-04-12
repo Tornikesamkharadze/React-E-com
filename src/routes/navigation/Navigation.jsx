@@ -3,10 +3,16 @@ import { Link } from "react-router-dom";
 import "./navigation.style.scss";
 import { ReactComponent as Logo } from "../../assets/shopping-logo-svgrepo-com.svg";
 import { useUserContext } from "../../contexts/userContext";
+import { signOutUser } from "../../utils/firebase/firebase.utils";
 
 const Navigation = () => {
   const { currentUser } = useUserContext();
-  console.log(currentUser);
+
+  const signOutHandler = async () => {
+    await signOutUser();
+    currentUser(null);
+  };
+
   return (
     <div className="navigation">
       <Link className="logo-container" to="/">
@@ -19,9 +25,15 @@ const Navigation = () => {
         <Link className="nav-link" to="Shop">
           Shop
         </Link>
-        <Link className="nav-link" to="auth">
-          SIGN IN
-        </Link>
+        {currentUser ? (
+          <span className="nav-link" onClick={signOutHandler}>
+            SIGN OUT
+          </span>
+        ) : (
+          <Link className="nav-link" to="auth">
+            SIGN IN
+          </Link>
+        )}
       </div>
     </div>
   );
