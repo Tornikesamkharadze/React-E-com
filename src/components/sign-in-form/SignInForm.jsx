@@ -5,9 +5,9 @@ import {
   signInAuthUserWithEmailAndPassword,
 } from "../../utils/firebase/firebase.utils";
 import FormInput from "../form-input/FormInput";
-import "./sign-in-form.style.scss";
 import ButtonComponent from "../button/ButtonComponent";
 import { useUserContext } from "../../contexts/userContext";
+import "./sign-in-form.style.scss";
 
 const initialValue = {
   email: "",
@@ -18,6 +18,8 @@ const SignInForm = () => {
   const [formFields, setFormFields] = useState(initialValue);
   const { email, password } = formFields;
   const [formError, setFormError] = useState("");
+
+  //context
   const { setCurrentUser } = useUserContext();
 
   const onChangeHandler = (e) => {
