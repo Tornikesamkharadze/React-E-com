@@ -1,13 +1,17 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import "./navigation.style.scss";
+import CartIcon from "../../components/cart-icon/CartIcon";
 import { ReactComponent as Logo } from "../../assets/shopping-logo-svgrepo-com.svg";
+import CartDropDown from "../../components/cart-dropdown/CartDropdown";
 import { useUserContext } from "../../contexts/userContext";
 import { signOutUser } from "../../utils/firebase/firebase.utils";
+import { useCartContext } from "../../contexts/CartContext";
+import "./navigation.style.scss";
 
 const Navigation = () => {
   const { currentUser } = useUserContext();
-
+  const { isCartOpen } = useCartContext();
+ 
   return (
     <div className="navigation">
       <Link className="logo-container" to="/">
@@ -29,7 +33,9 @@ const Navigation = () => {
             SIGN IN
           </Link>
         )}
+        <CartIcon />
       </div>
+      {isCartOpen && <CartDropDown />}
     </div>
   );
 };
