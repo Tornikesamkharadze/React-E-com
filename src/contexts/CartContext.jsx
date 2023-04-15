@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 
 const addCartItem = (cartItems, productToAdd) => {
   const existingCartItem = cartItems.find(
@@ -20,6 +20,14 @@ const CartContext = React.createContext();
 const CartContextProvider = ({ children }) => {
   const [isCartOpen, setIscardOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
+  const [cartTotal, setCartTotal] = useState(0);
+
+  useEffect(() => {
+    const total = cartItems.reduce((total, cartItems) => {
+      return total + cartItems.quantity;
+    }, 0);
+    setCartTotal(total);
+  }, [cartItems]);
 
   const addItemToCart = (productToAdd) => {
     setCartItems(addCartItem(cartItems, productToAdd));
@@ -27,7 +35,7 @@ const CartContextProvider = ({ children }) => {
 
   return (
     <CartContext.Provider
-      value={{ isCartOpen, setIscardOpen, addItemToCart, cartItems }}
+      value={{ isCartOpen, setIscardOpen, addItemToCart, cartItems, cartTotal }}
     >
       {children}
     </CartContext.Provider>
