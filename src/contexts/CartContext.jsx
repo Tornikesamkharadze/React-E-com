@@ -41,7 +41,7 @@ const CartContextProvider = ({ children }) => {
   const [isCartOpen, setIscardOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
   const [cartTotal, setCartTotal] = useState(0);
-
+  const [totalPrice, setTotalPrice] = useState(0);
   useEffect(() => {
     const total = cartItems.reduce((total, cartItems) => {
       return total + cartItems.quantity;
