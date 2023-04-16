@@ -2,17 +2,8 @@ import React from "react";
 import { useCartContext } from "../../contexts/CartContext";
 
 const Checkout = () => {
-  const { cartItems, addItemToCart } = useCartContext();
+  const { cartItems, addItemToCart, removeItemToCart } = useCartContext();
 
-/*   const removeItem = (itemId) => {
-    const removeItems = cartItems.filter((item) => {
-      if (item.id !== itemId) {
-        return item;
-      }
-    });
-    return setCartItems(removeItems);
-  }; */
-  
   return (
     <div>
       {cartItems.map((product) => {
@@ -22,12 +13,12 @@ const Checkout = () => {
             <img src={imageUrl} alt={name} />
             <span style={{ paddingRight: "10px" }}>{name}</span>
             <div>
-              {/*  <button
-                onClick={{}}
+              <button
+                onClick={() => removeItemToCart(product)}
                 style={{ border: "none", cursor: "pointer" }}
               >
                 {"<"}
-              </button> */}
+              </button>
               {quantity}
               <button
                 onClick={() => addItemToCart(product)}
@@ -37,12 +28,6 @@ const Checkout = () => {
               </button>
             </div>
             <span style={{ paddingLeft: "10px" }}>price - {price}</span>
-          {/*   <button
-              onClick={() => removeItem(id)}
-              style={{ height: "20px", marginLeft: "20px" }}
-            >
-              X
-            </button> */}
           </div>
         );
       })}
