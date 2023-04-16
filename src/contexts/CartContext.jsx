@@ -32,6 +32,10 @@ const removeCartItem = (cartItems, cartItemToRemove) => {
   );
 };
 
+const filterCartItem = (cartItems, cartItemToFilter) => {
+  return cartItems.filter((cartItem) => cartItem.id !== cartItemToFilter.id);
+};
+
 const CartContext = React.createContext();
 const CartContextProvider = ({ children }) => {
   const [isCartOpen, setIscardOpen] = useState(false);
@@ -53,15 +57,20 @@ const CartContextProvider = ({ children }) => {
     setCartItems(removeCartItem(cartItems, cartItemToRemove));
   };
 
+  const filterItemToCart = (cartItemToFilter) => {
+    setCartItems(filterCartItem(cartItems, cartItemToFilter));
+  };
+
   return (
     <CartContext.Provider
       value={{
         isCartOpen,
         setIscardOpen,
         addItemToCart,
+        filterItemToCart,
+        removeItemToCart,
         cartItems,
         cartTotal,
-        removeItemToCart,
       }}
     >
       {children}
