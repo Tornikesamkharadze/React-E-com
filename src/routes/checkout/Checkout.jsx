@@ -2,7 +2,8 @@ import React from "react";
 import { useCartContext } from "../../contexts/CartContext";
 
 const Checkout = () => {
-  const { cartItems, addItemToCart, removeItemToCart } = useCartContext();
+  const { cartItems, addItemToCart, removeItemToCart, filterItemToCart } =
+    useCartContext();
 
   return (
     <div>
@@ -28,6 +29,7 @@ const Checkout = () => {
               </button>
             </div>
             <span style={{ paddingLeft: "10px" }}>price - {price}</span>
+            <span onClick={() => filterItemToCart(product)}> X</span>
           </div>
         );
       })}
