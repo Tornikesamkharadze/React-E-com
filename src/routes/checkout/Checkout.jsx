@@ -1,38 +1,32 @@
-import React from "react";
 import { useCartContext } from "../../contexts/CartContext";
-
+import CheckoutItem from "../../components/checkout-item/CheckoutItem";
+import "./checkout.styles.scss";
 const Checkout = () => {
-  const { cartItems, addItemToCart, removeItemToCart, filterItemToCart } =
-    useCartContext();
+  const { cartItems } = useCartContext();
 
   return (
-    <div>
+    <div className="checkout-container">
+      <div className="checkout-header">
+        <div className="header-block">
+          <span>Product</span>
+        </div>
+        <div className="header-block">
+          <span>Description</span>
+        </div>
+        <div className="header-block">
+          <span>Quantity</span>
+        </div>
+        <div className="header-block">
+          <span>Price</span>
+        </div>
+        <div className="header-block">
+          <span>Remove</span>
+        </div>
+      </div>
       {cartItems.map((product) => {
-        const { id, name, price, imageUrl, quantity } = product;
-        return (
-          <div key={id} style={{ display: "flex" }}>
-            <img src={imageUrl} alt={name} />
-            <span style={{ paddingRight: "10px" }}>{name}</span>
-            <div>
-              <button
-                onClick={() => removeItemToCart(product)}
-                style={{ border: "none", cursor: "pointer" }}
-              >
-                {"<"}
-              </button>
-              {quantity}
-              <button
-                onClick={() => addItemToCart(product)}
-                style={{ border: "none", cursor: "pointer" }}
-              >
-                {">"}
-              </button>
-            </div>
-            <span style={{ paddingLeft: "10px" }}>price - {price}</span>
-            <span onClick={() => filterItemToCart(product)}> X</span>
-          </div>
-        );
+        return <CheckoutItem key={product.id} cartItem={product} />;
       })}
+      <span className="total">Total:0</span>
     </div>
   );
 };
