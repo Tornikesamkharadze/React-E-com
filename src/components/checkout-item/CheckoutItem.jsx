@@ -6,7 +6,7 @@ const CheckoutItem = ({ cartItem }) => {
   const { addItemToCart, removeItemToCart, filterItemToCart } =
     useCartContext();
 
-  const filterItem = () => filterItemToCart(cartItem);
+  const filterItemHandler = () => filterItemToCart(cartItem);
   const addItemHandler = () => addItemToCart(cartItem);
   const removeItemHandler = () => removeItemToCart(cartItem);
 
@@ -26,7 +26,7 @@ const CheckoutItem = ({ cartItem }) => {
         </div>
       </span>
       <span className="price">{price}</span>
-      <div onClick={filterItem} className="remove-button">
+      <div onClick={filterItemHandler} className="remove-button">
         &#10005;
       </div>
     </div>
