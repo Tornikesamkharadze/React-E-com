@@ -1,16 +1,28 @@
-import React from "react";
-import { useProductsDataContext } from "../../contexts/productsDataContext";
+import React, { Fragment } from "react";
+import { useCategoriesProvider } from "../../contexts/categoriesContext";
 import ProductCard from "../../components/product-card/ProductCard";
 import "./shop-style.scss";
-const Shop = () => {
-  const { products } = useProductsDataContext();
 
+const Shop = () => {
+  const { catecogiresMap } = useCategoriesProvider();
+ 
   return (
-    <div className="products-container">
-      {products.map((product) => {
-        return <ProductCard key={product.id} product={product} />;
+    <React.Fragment>
+      {Object.keys(catecogiresMap).map((title) => {
+        return (
+          <React.Fragment key={title}>
+            <h2>{title}</h2>
+            <div className="products-container">
+              {catecogiresMap[title].map((product, index) => {
+                if (index < 4) {
+                  return <ProductCard key={product.id} product={product} />;
+                }
+              })}
+            </div>
+          </React.Fragment>
+        );
       })}
-    </div>
+    </React.Fragment>
   );
 };
 
