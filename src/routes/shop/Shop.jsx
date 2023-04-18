@@ -1,22 +1,15 @@
-import React, { Fragment } from "react";
-import { useCategoriesProvider } from "../../contexts/categoriesContext";
-import CategoryPreview from "../../components/category-preview/CategoryPreview";
+import { Route, Routes } from "react-router-dom";
+import CategoriesPreview from "../categories-preview/CategoriesPreview";
+import Category from "../category/Category";
 
 import "./shop-style.scss";
 
-
 const Shop = () => {
-  const { catecogiresMap } = useCategoriesProvider();
-
   return (
-    <div className="shop-container">
-      {Object.keys(catecogiresMap).map((title) => {
-        const products = catecogiresMap[title];
-        return (
-          <CategoryPreview key={title} title={title} products={products} />
-        );
-      })}
-    </div>
+    <Routes>
+      <Route index element={<CategoriesPreview />} />
+      <Route path=":category" element={<Category />} />
+    </Routes>
   );
 };
 
