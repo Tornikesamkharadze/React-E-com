@@ -1,9 +1,9 @@
 import React from "react";
-import { useCategoriesProvider } from "../../contexts/categoriesContext";
+import { useCategoriesContext } from "../../contexts/categoriesContext";
 import CategoryPreview from "../../components/category-preview/CategoryPreview";
 
 const CategoriesPreview = () => {
-  const { catecogiresMap } = useCategoriesProvider();
+  const { catecogiresMap } = useCategoriesContext();
 
   return (
     <React.Fragment>
