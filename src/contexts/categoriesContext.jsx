@@ -22,8 +22,8 @@ const CategoriesProvider = ({ children }) => {
   );
 };
 
-const useCategoriesProvider = () => {
+const useCategoriesContext = () => {
   return useContext(CategoriesContext);
 };
 
-export { CategoriesContext, CategoriesProvider, useCategoriesProvider };
+export { CategoriesContext, CategoriesProvider, useCategoriesContext };
