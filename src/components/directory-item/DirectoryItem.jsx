@@ -1,5 +1,5 @@
 import React from "react";
-import "./directoryItem.style.scss";
+import "./directory.style.scss";
 
 const DirectoryItem = ({ item }) => {
   const { imageUrl, title } = item;
