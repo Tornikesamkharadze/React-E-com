@@ -21,7 +21,7 @@ const CartDropDown = () => {
         {cartItems.length ? (
           cartItems.map((item) => <CartItem key={item.id} cartItem={item} />)
         ) : (
-          <span>Your card is empty </span>
+          <span className="empty-message">Your card is empty </span>
         )}
       </div>
       <ButtonComponent
