@@ -1,11 +1,14 @@
 import React, { useState } from "react";
 import {
   signInWithGooglePopup,
-  createUserDocumentFromAuth,
   signInAuthUserWithEmailAndPassword,
 } from "../../utils/firebase/firebase.utils";
+
 import FormInput from "../form-input/FormInput";
-import ButtonComponent from "../button/ButtonComponent";
+import ButtonComponent, {
+  BUTTON_TYPE_CLASSES,
+} from "../button/ButtonComponent";
+
 import "./sign-in-form.style.scss";
 
 const initialValue = {
@@ -25,7 +28,6 @@ const SignInForm = () => {
 
   const signInWithGoogle = async () => {
     const { user } = await signInWithGooglePopup();
- 
   };
 
   const handleSubmit = async (e) => {
@@ -80,7 +82,7 @@ const SignInForm = () => {
           <ButtonComponent
             type="button"
             onClick={signInWithGoogle}
-            buttonType={"google"}
+            buttonType={BUTTON_TYPE_CLASSES.google}
           >
             Google sign in
           </ButtonComponent>
