@@ -42,12 +42,8 @@ export const Wrapper = styled.div`
     font-size: 18px;
 
     .name {
-      width: 90%;
       margin-bottom: 15px;
     }
-
-    .price {
-      width: 10%;
-    }
+  
   }
 `;
