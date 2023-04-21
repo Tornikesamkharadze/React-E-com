@@ -1,10 +1,10 @@
 import React from "react";
-import "./directory.style.scss";
+import { DirectoryItemContainer } from "./directory.style";
 
 const DirectoryItem = ({ item }) => {
   const { imageUrl, title } = item;
   return (
-    <div className="directory-item-container">
+    <DirectoryItemContainer>
       <div
         className="background-image"
         style={{ backgroundImage: `url(${imageUrl})` }}
@@ -13,7 +13,7 @@ const DirectoryItem = ({ item }) => {
         <h2>{title}</h2>
         <p>Shop now</p>
       </div>
-    </div>
+    </DirectoryItemContainer>
   );
 };
 
